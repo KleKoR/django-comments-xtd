@@ -320,8 +320,16 @@ def like(request, comment_id, next=None):
                              c=comment.pk)
     # Render a form on GET
     else:
+        template_arg = [
+        "django_comments_xtd/%s/%s/like.html" % (
+            comment.content_type.app_label,
+            comment.content_type.model),
+        "django_comments_xtd/%s/like.html" % (
+            comment.content_type.app_label,),
+        "django_comments_xtd/like.html"
+        ]
         already_liked_it = request.user in comment.users_who_liked_it()
-        return render(request, 'django_comments_xtd/like.html',
+        return render(request, template_arg,
                       {'comment': comment,
                        'already_liked_it': already_liked_it,
                        'next': next})
@@ -348,8 +356,16 @@ def dislike(request, comment_id, next=None):
                              c=comment.pk)
     # Render a form on GET
     else:
+        template_arg = [
+        "django_comments_xtd/%s/%s/dislike.html" % (
+            comment.content_type.app_label,
+            comment.content_type.model),
+        "django_comments_xtd/%s/dislike.html" % (
+            comment.content_type.app_label,),
+        "django_comments_xtd/dislike.html"
+        ]
         already_disliked_it = request.user in comment.users_who_disliked_it()
-        return render(request, 'django_comments_xtd/dislike.html',
+        return render(request, template_arg,
                       {'comment': comment,
                        'already_disliked_it': already_disliked_it,
                        'next': next})
